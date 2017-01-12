@@ -17,16 +17,21 @@ var my_news = [
   }
 ];
 
-//comment component
-var Comments = React.createClass({
+//News component creates Articles
+var Article = React.createClass({
   render: function() {
+    var author = this.props.data.author,
+        text = this.props.data.text;
+
     return (
-      <div className="comments">
-      Новостей нет. Комментировать нечего.
+      <div className="article">
+        <p className="news__author">{author}:</p>
+        <p className="news_text">{text}</p>
       </div>
     );
   }
 });
+
 
 //news component
 var News = React.createClass({
@@ -37,8 +42,8 @@ var News = React.createClass({
       newsTemplate = data.map(function(item, index) {
         return (
           <div key={index}>
-            <p className="news__author">{item.author}:</p>
-            <p className="news_text">{item.text}</p>
+            {/*send data to Aritcle*/}
+            <Article data={item} />
           </div>
           )
       });
@@ -61,9 +66,8 @@ var App = React.createClass({
     //add News component to App
     return (
         <div className="app">
-        Всем привет, я компонент App! Я умею отображать новости.
+        <h3>Новости</h3>
         <News data={my_news}/>{/*added data property*/}
-        <Comments />
         </div>
       );
   }
