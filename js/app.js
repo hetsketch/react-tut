@@ -1,9 +1,20 @@
+//comment component
+var Comments = React.createClass({
+  render: function() {
+    return (
+      <div className="comments">
+      Новостей нет. Комментировать нечего.
+      </div>
+    );
+  }
+});
+
 //new component
 var News = React.createClass({
   render: function() {
     return (
       <div className="news">
-      К сожаления, новостей нет.
+      К сожалению, новостей нет.
       </div>
     );
   }
@@ -17,6 +28,7 @@ var App = React.createClass({
         <div className="app">
         Всем привет, я компонент App!
         <News />
+        <Comments />
         </div>
       );
   }
