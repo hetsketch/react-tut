@@ -10,6 +10,10 @@ var my_news = [
   {
     author: 'Гость',
     text: 'Бесплатно. Скачать. Лучший сайт - http://localhost:3000'
+  },
+  {
+    author: 'Сашка',
+    text: 'Я не хочу продавать айфоны, я хочу программировать :('
   }
 ];
 
@@ -24,28 +28,34 @@ var Comments = React.createClass({
   }
 });
 
-//new component
+//news component
 var News = React.createClass({
   render: function() {
     var data = this.props.data;
-    var newsTemplate = data.map(function(item, index) {
-      return (
-        <div key={index}>
-          <p className="news__author">{item.author}:</p>
-          <p className="news_text">{item.text}</p>
-        </div>
-      )
-    });
+    var newsTemplate;
+    if(data.length > 0) {
+      newsTemplate = data.map(function(item, index) {
+        return (
+          <div key={index}>
+            <p className="news__author">{item.author}:</p>
+            <p className="news_text">{item.text}</p>
+          </div>
+          )
+      });
+    } else {
+      newsTemplate = <p>К сожаления новостей нет.</p>
+    }
 
     return (
       <div className="news">
         {newsTemplate}
+        <strong className={data.length > 0 ? '':'none'}>Всего новостей: {data.length}</strong>
       </div>
     );
   }
 });
 
-//React component
+//app component
 var App = React.createClass({
   render: function() {
     //add News component to App
