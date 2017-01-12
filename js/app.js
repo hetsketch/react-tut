@@ -12,10 +12,10 @@ var News = React.createClass({
 //React component
 var App = React.createClass({
   render: function() {
+    //add News component to App
     return (
         <div className="app">
         Всем привет, я компонент App!
-        //add News component to App
         <News />
         </div>
       );
