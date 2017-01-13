@@ -1,27 +1,26 @@
 var my_news = [
-  // {
-  //   author: 'Саша Печкин',
-  //   text: 'В четверг, четвертого числа...'
-  // },
-  // {
-  //   author: 'Просто Вася',
-  //   text: 'Считаю, что $ должен стоить 35 рублей!'
-  // },
-  // {
-  //   author: 'Гость',
-  //   text: 'Бесплатно. Скачать. Лучший сайт - http://localhost:3000'
-  // },
-  // {
-  //   author: 'Сашка',
-  //   text: 'Я не хочу продавать айфоны, я хочу программировать :('
-  // }
+  {
+    author: 'Саша Печкин',
+    text: 'В четчерг, четвертого числа...',
+    bigText: 'в четыре с четвертью часа четыре чёрненьких чумазеньких чертёнка чертили чёрными чернилами чертёж.'
+  },
+  {
+    author: 'Просто Вася',
+    text: 'Считаю, что $ должен стоить 35 рублей!',
+    bigText: 'А евро 42!'
+  },
+  {
+    author: 'Гость',
+    text: 'Бесплатно. Скачать. Лучший сайт - http://localhost:3000',
+    bigText: 'На самом деле платно, просто нужно прочитать очень длинное лицензионное соглашение'
+  }
 ];
 
 //News component creates Articles
 var Article = React.createClass({
-  render: function() {
+  render: function () {
     var author = this.props.data.author,
-        text = this.props.data.text;
+      text = this.props.data.text;
 
     return (
       <div className="article">
@@ -32,20 +31,30 @@ var Article = React.createClass({
   }
 });
 
-
 //news component
 var News = React.createClass({
-  render: function() {
+  propTypes: {
+    //field: fieldType
+    // data: React.PropTypes.array.isRequired
+    
+    //check field in object
+    data: React.PropTypes.shape({
+      author: React.PropTypes.string.isRequired,
+      text: React.PropTypes.string.isRequired
+    })
+
+  },
+  render: function () {
     var data = this.props.data;
     var newsTemplate;
-    if(data.length > 0) {
-      newsTemplate = data.map(function(item, index) {
+    if (data.length > 0) {
+      newsTemplate = data.map(function (item, index) {
         return (
           <div key={index}>
             {/*send data to Aritcle*/}
-            <Article data={item} />
+            <Article data={item}/>
           </div>
-          )
+        )
       });
     } else {
       newsTemplate = <p>К сожалению новостей нет.</p>
@@ -62,14 +71,14 @@ var News = React.createClass({
 
 //app component
 var App = React.createClass({
-  render: function() {
+  render: function () {
     //add News component to App
     return (
-        <div className="app">
+      <div className="app">
         <h3>Новости</h3>
         <News data={my_news}/>{/*added data property*/}
-        </div>
-      );
+      </div>
+    );
   }
 });
 
