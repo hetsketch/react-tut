@@ -18,14 +18,41 @@ var my_news = [
 
 //News component creates Articles
 var Article = React.createClass({
+  propTypes: {
+    //field: fieldType
+    // data: React.PropTypes.array.isRequired
+
+    //check field in object
+    data: React.PropTypes.shape({
+      author: React.PropTypes.string.isRequired,
+      text: React.PropTypes.string.isRequired,
+      bigText: React.PropTypes.string.isRequired
+    })
+
+  },
+  getInitialState: function () {
+    return {
+      visible: false
+    };
+  },
+  //onclick event handler
+  readmoreClick: function (e) {
+    e.preventDefault();
+    this.setState({visible: true});
+  },
   render: function () {
     var author = this.props.data.author,
-      text = this.props.data.text;
+          text = this.props.data.text,
+       bigText = this.props.data.bigText,
+      //read value from component state
+       visible = this.state.visible;
 
     return (
       <div className="article">
         <p className="news__author">{author}:</p>
-        <p className="news_text">{text}</p>
+        <p className="news__text">{text}</p>
+        <a href="#" onClick={this.readmoreClick} className={'news__readmore ' + (visible ? 'none' : '')}>Подробнее</a>
+        <p className={'news__big-text ' + (visible ? '' : 'none')}>{bigText}</p>
       </div>
     );
   }
@@ -33,17 +60,6 @@ var Article = React.createClass({
 
 //news component
 var News = React.createClass({
-  propTypes: {
-    //field: fieldType
-    // data: React.PropTypes.array.isRequired
-    
-    //check field in object
-    data: React.PropTypes.shape({
-      author: React.PropTypes.string.isRequired,
-      text: React.PropTypes.string.isRequired
-    })
-
-  },
   render: function () {
     var data = this.props.data;
     var newsTemplate;
