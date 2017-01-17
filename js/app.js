@@ -15,7 +15,8 @@ var my_news = [
     bigText: 'На самом деле платно, просто нужно прочитать очень длинное лицензионное соглашение'
   }
 ];
-
+//недостоток такого подхода в том, что при каждом вызове setState будет перерисовываться компонент
+//в этом суть контролируемого компонента
 var TestInput = React.createClass({
   getInitialState: function () {
     return {
@@ -26,14 +27,23 @@ var TestInput = React.createClass({
     e.preventDefault();
     this.setState({st: e.target.value});
   },
+  clicked: function (e) {
+    alert(this.state.st);
+  },
   render: function () {
     return (
-      <input
-        class="test-input"
-        onChange={this.changed}
-        value={this.state.st}
-        placeholder="введите значение"
-      />
+      <div>
+        <input
+          className="test-input"
+          onChange={this.changed}
+          value={this.state.st}
+          placeholder="введите значение"
+        />
+        < button
+          className="button"
+          onClick={this.clicked}
+        >Submit</button>
+      </div>
     );
   }
 });
