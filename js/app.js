@@ -18,17 +18,9 @@ var my_news = [
 //недостоток такого подхода в том, что при каждом вызове setState будет перерисовываться компонент
 //в этом суть контролируемого компонента
 var TestInput = React.createClass({
-  getInitialState: function () {
-    return {
-      st: ''
-    }
-  },
-  changed: function (e) {
-    e.preventDefault();
-    this.setState({st: e.target.value});
-  },
   clicked: function (e) {
-    alert(this.state.st);
+    console.log(this.refs);
+    alert(ReactDOM.findDOMNode(this.refs.myTestInput).value);
   },
   render: function () {
     return (
@@ -36,12 +28,14 @@ var TestInput = React.createClass({
         <input
           className="test-input"
           onChange={this.changed}
-          value={this.state.st}
           placeholder="введите значение"
+          defaultValue=''
+          ref='myTestInput'
         />
         < button
           className="button"
           onClick={this.clicked}
+          ref="allert_button"
         >Submit</button>
       </div>
     );
