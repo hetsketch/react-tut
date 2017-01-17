@@ -16,6 +16,28 @@ var my_news = [
   }
 ];
 
+var TestInput = React.createClass({
+  getInitialState: function () {
+    return {
+      st: ''
+    }
+  },
+  changed: function (e) {
+    e.preventDefault();
+    this.setState({st: e.target.value});
+  },
+  render: function () {
+    return (
+      <input
+        class="test-input"
+        onChange={this.changed}
+        value={this.state.st}
+        placeholder="введите значение"
+      />
+    );
+  }
+});
+
 //News component creates Articles
 var Article = React.createClass({
   propTypes: {
@@ -46,9 +68,6 @@ var Article = React.createClass({
       bigText = this.props.data.bigText,
     //read value from component state
       visible = this.state.visible;
-
-    console.log('render', this);
-    
     return (
       <div className="article">
         <p className="news__author">{author}:</p>
@@ -56,7 +75,7 @@ var Article = React.createClass({
         <a href="#"
            onClick={this.readmoreClick}
            className={'news__readmore ' + (visible ? 'none' : '')}>
-           Подробнее
+          Подробнее
         </a>
         <p className={'news__big-text ' + (visible ? '' : 'none')}>{bigText}</p>
       </div>
@@ -67,14 +86,10 @@ var Article = React.createClass({
 //news component
 var News = React.createClass({
   getInitialState: function () {
-    return{
+    return {
       //create new state
       counter: 0
     };
-  },
-  increment: function (e) {
-    e.preventDefault();
-    this.setState({counter: ++this.state.counter});
   },
   render: function () {
     var data = this.props.data;
@@ -111,6 +126,7 @@ var App = React.createClass({
     //add News component to App
     return (
       <div className="app">
+        <TestInput />
         <h3>Новости</h3>
         <News data={my_news}/>{/*added data property*/}
       </div>
