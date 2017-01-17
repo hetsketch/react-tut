@@ -42,16 +42,22 @@ var Article = React.createClass({
   },
   render: function () {
     var author = this.props.data.author,
-          text = this.props.data.text,
-       bigText = this.props.data.bigText,
-      //read value from component state
-       visible = this.state.visible;
+      text = this.props.data.text,
+      bigText = this.props.data.bigText,
+    //read value from component state
+      visible = this.state.visible;
 
+    console.log('render', this);
+    
     return (
       <div className="article">
         <p className="news__author">{author}:</p>
         <p className="news__text">{text}</p>
-        <a href="#" onClick={this.readmoreClick} className={'news__readmore ' + (visible ? 'none' : '')}>Подробнее</a>
+        <a href="#"
+           onClick={this.readmoreClick}
+           className={'news__readmore ' + (visible ? 'none' : '')}>
+           Подробнее
+        </a>
         <p className={'news__big-text ' + (visible ? '' : 'none')}>{bigText}</p>
       </div>
     );
@@ -60,6 +66,16 @@ var Article = React.createClass({
 
 //news component
 var News = React.createClass({
+  getInitialState: function () {
+    return{
+      //create new state
+      counter: 0
+    };
+  },
+  increment: function (e) {
+    e.preventDefault();
+    this.setState({counter: ++this.state.counter});
+  },
   render: function () {
     var data = this.props.data;
     var newsTemplate;
@@ -79,7 +95,11 @@ var News = React.createClass({
     return (
       <div className="news">
         {newsTemplate}
-        <strong className={data.length > 0 ? '':'none'}>Всего новостей: {data.length}</strong>
+        <strong
+          className={data.length > 0 ? '':'none'}
+          onClick={this.increment}>
+          Всего новостей: {data.length}
+        </strong>
       </div>
     );
   }
